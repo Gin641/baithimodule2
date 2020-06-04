@@ -79,13 +79,13 @@ public class Phone implements Serializable {
     @Override
     public String toString() {
         return "Phone{" +
-                "contact='" + contact + '\'' +
-                ", name='" + name + '\'' +
-                ", number=" + number +
-                ", sex='" + sex + '\'' +
-                ", address='" + address + '\'' +
-                ", age=" + age +
-                ", email='" + email + '\'' +
+                "contact= " + contact + '|' +
+                " name= " + name + "|" +
+                " number= " + number + "|" +
+                " sex= " + sex + '|' +
+                " address= " + address + '|' +
+                " age= " + age +
+                " email= " + email + '|' +
                 '}';
     }
 }

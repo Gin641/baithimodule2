@@ -3,32 +3,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LishPhone {
-    private static String FILE_LIST_PHONE = "phonelist.cvs";
+    private final String COMMA_DELIMITER = "|";
+
+    public List<Phone> read() {
+        List<Phone> phoneList = new ArrayList<>();
+        BufferedReader bufferedReader = null;
+        try {
+            String line;
+            bufferedReader = new BufferedReader(new FileReader("phonelist.csv"));
+            while ((line = bufferedReader.readLine()) != null) {
+                printContry(parseCvsLine(line));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return phoneList;
+    }
+    private List<String> parseCvsLine(String csvLine) {
+        List<String> result =new ArrayList<>();
+        if (csvLine != null){
+            String[] splitData = csvLine.split(COMMA_DELIMITER);
+            for (int i = 0;i < splitData.length; i++){
+                result.add(splitData[i]);
+            }
+        }
+        return result;
+    }
+    private void printContry(List<String> country){
+        System.out.println(country.get(0) + "|" +
+                country.get(1) + "|" +
+                country.get(2) + "|" +
+                country.get(3) + "|" +
+                country.get(4) + "|" +
+                country.get(5) + "|" +
+                country.get(6) + "|");
+    }
     public void write(List<Phone> phoneList){
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_LIST_PHONE));
+            FileWriter fileWriter = new FileWriter("phonelist.csv");
             for (Phone phone : phoneList){
-                bw.write(phone.toString());
-                bw.write("\n");
+                fileWriter.write(phone.toString());
+                fileWriter.write("\n");
             }
-            bw.close();
+            fileWriter.close();
         }catch (IOException e){
             e.printStackTrace();
         }
     }
-//    public List<Phone> read() {
-//        List<Phone> phoneList = new ArrayList<>();
-//        FileInputStream fis = null;
-//        BufferedInputStream bis = null;
-//        try {
-//            fis = new FileInputStream(FILE_LIST_PHONE);
-//            bis = new BufferedInputStream(fis);
-//            phoneList = (List<Phone>) bis.read();
-//            bis.close();
-//            fis.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return phoneList;
-//    }
 }

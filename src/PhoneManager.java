@@ -5,17 +5,23 @@ public class PhoneManager {
     Scanner sc = new Scanner(System.in);
     private List<Phone> phoneList;
     private LishPhone lishPhone;
+    private String numberFind = " ";
     public PhoneManager(){
         lishPhone = new LishPhone();
+        phoneList = lishPhone.read();
+    }
+    public void NumberUserAcc(){
+        System.out.print("Nhập SĐT: ");
+        numberFind = sc.nextLine();
     }
     public int inputNumber(){
-        System.out.println("Nhập SĐT: ");
+        System.out.print("Nhập SĐT: ");
         while (true){
             try {
                 int number = Integer.parseInt(sc.nextLine());
                 return number;
             }catch (NumberFormatException e){
-                System.out.println("SĐT không hợp lệ! \n" +
+                System.out.print("SĐT không hợp lệ! \n" +
                         "Nhập lại SĐT");
             }
         }
@@ -40,19 +46,19 @@ public class PhoneManager {
         }
     }
     private String inputContact(){
-        System.out.println("Nhập nhóm: ");
+        System.out.print("Nhập nhóm: ");
         return sc.nextLine();
     }
     private String inputSex(){
-        System.out.println("Nhập giới tính: ");
+        System.out.print("Nhập giới tính: ");
         return sc.nextLine();
     }
     private String inputAddress(){
-        System.out.println("Nhập địa chỉ: ");
+        System.out.print("Nhập địa chỉ: ");
         return sc.nextLine();
     }
     private String inputEmail(){
-        System.out.println("Nhập Email: ");
+        System.out.print("Nhập Email: ");
         return sc.nextLine();
     }
     public void add(){
@@ -70,23 +76,27 @@ public class PhoneManager {
     public void delete(int number){
         Phone phone = null;
         int size = phoneList.size();
-        String choice = null;
         for (int i = 0; i < size;i++){
             if (phoneList.get(i).getNumber() == number) {
                 phone = phoneList.get(i);
-                if (phone != null) {
-                    switch (choice) {
-                        case "Y":
-                            phoneList.remove(phone);
-                            lishPhone.write(phoneList);
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-                    System.out.println("SĐT: " + number + " Không có");
-                }
+                break;
             }
+        }
+        if (phone != null){
+            String chose;
+            System.out.println("Nhập lựa chọn để xóa \n" +
+                    "ấn y để xóa " + " ấn n để không xóa");
+            chose = sc.nextLine();
+            switch (chose){
+                case "y":
+                    phoneList.remove(phone);
+                    lishPhone.write(phoneList);
+                    break;
+                case "n":
+                    break;
+            }
+        }else {
+            System.out.println("SĐT: " + number + " không có");
         }
     }
     public void edit(int number){
@@ -95,7 +105,7 @@ public class PhoneManager {
         for (int i =0; i < size;i++){
             if (phoneList.get(i).getNumber() == number){
                 isExisted = true;
-                phoneList.get(i).setAddress(inputAddress());
+                phoneList.get(i).setContact(inputContact());
                 phoneList.get(i).setName(inputName());
                 phoneList.get(i).setSex(inputSex());
                 phoneList.get(i).setAge(inputAge());
@@ -119,6 +129,7 @@ public class PhoneManager {
             System.out.format("%10s | ",phone.getAddress());
             System.out.format("%5d | ", phone.getAge());
             System.out.format("%15s | ",phone.getEmail());
+            System.out.println("\n");
         }
     }
 }

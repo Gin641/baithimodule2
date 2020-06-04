@@ -50,7 +50,6 @@ public class Main {
         System.out.println("3. Sửa SĐT");
         System.out.println("4. Xem danh sách SĐT");
         System.out.println("5. Ghi danh sách sang dạng csv");
-        System.out.println("6. Đọc danh sách từ dạng csv");
         System.out.println("0. Thoát.");
         System.out.print("Nhập: ");
     }
